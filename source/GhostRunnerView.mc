@@ -51,13 +51,13 @@ class GhostRunnerView extends WatchUi.DataField {
     // guarantee that compute() will be called before onUpdate().
     function compute(info as Activity.Info) as Void {
         // See Activity.Info in the documentation for available information.
-        if(info has :currentHeartRate){
-            if(info.currentHeartRate != null){
-                mValue = info.currentHeartRate as Number;
-            } else {
-                mValue = 0.0f;
-            }
-        }
+       if (info has :elapsedDistance) {
+           if (info.elapsedDistance != null) {
+           mValue = info.elapsedDistance as Number;
+           } else {
+           mValue = 0.0f;
+           }
+       }
     }
 
     // Display the value you computed here. This will be called
