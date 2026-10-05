@@ -6,10 +6,18 @@ import Toybox.WatchUi;
 class GhostRunnerView extends WatchUi.DataField {
 
     hidden var mValue as Numeric;
+    hidden var mElapsedTime as Numeric;
+    hidden var mTargetPaceSecondsPerKm as Numeric;
+    hidden var mGhostTimeSeconds as Numeric;
+    hidden var mGapSeconds as Numeric;
 
     function initialize() {
         DataField.initialize();
         mValue = 0.0f;
+        mElapsedTime = 0;
+        mTargetPaceSecondsPerKm = 312;
+        mGhostTimeSeconds = 0.0f;
+        mGapSeconds = 0.0f;
     }
 
     // Set your layout here. Anytime the size of obscurity of
@@ -58,6 +66,15 @@ class GhostRunnerView extends WatchUi.DataField {
            mValue = 0.0f;
            }
        }
+       if (info has :elapsedTime) {
+            if (info.elapsedTime != null) {
+            mElapsedTime = info.elapsedTime as Number;
+            } else {
+                mElapsedTime = 0;
+            }
+        }
+        mGhostTimeSeconds = (mValue / 1000.0f) * mTargetPaceSecondsPerKm;
+        mGapSeconds = (mElapsedTime / 1000.0f) - mGhostTimeSeconds;
     }
 
     // Display the value you computed here. This will be called
@@ -73,7 +90,41 @@ class GhostRunnerView extends WatchUi.DataField {
         } else {
             value.setColor(Graphics.COLOR_BLACK);
         }
-        value.setText(mValue.format("%.2f"));
+        if (mGapSeconds > 0) {
+            value.setText(mGapSeconds.format("%.0f") + " s BEHIND");
+        } else if (mGapSeconds < 0) {
+            value.setText((-mGapSeconds).format("%.0f") + " s AHEAD");
+        } else {
+            value.setText("ON PACE");
+        }
+
+        var distanceView = View.findDrawableById("distance");
+
+        if (distanceView != null) {
+            var distanceText = distanceView as Text;
+
+            if (getBackgroundColor() == Graphics.COLOR_BLACK) {
+                distanceText.setColor(Graphics.COLOR_WHITE);
+            } else {
+                distanceText.setColor(Graphics.COLOR_BLACK);
+            }
+
+            distanceText.setText("Distance: " + (mValue / 1000.0f).format("%.2f") + " km");
+        }
+
+        var targetPaceView = View.findDrawableById("targetPace");
+
+        if (targetPaceView != null) {
+            var targetText = targetPaceView as Text;
+
+            if (getBackgroundColor() == Graphics.COLOR_BLACK) {
+                targetText.setColor(Graphics.COLOR_WHITE);
+            } else {
+                targetText.setColor(Graphics.COLOR_BLACK);
+            }
+
+            targetText.setText("Target: 5:12/km");
+        }
 
         // Call parent's onUpdate(dc) to redraw the layout
         View.onUpdate(dc);
