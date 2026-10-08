@@ -1,0 +1,25 @@
+<settings>
+
+    <setting
+        propertyKey="@Properties.targetPaceMinutes"
+        title="@Strings.TargetPaceMinutesTitle">
+
+        <settingConfig
+            type="numeric"
+            min="3"
+            max="10"
+            required="true" />
+    </setting>
+
+    <setting
+        propertyKey="@Properties.targetPaceSeconds"
+        title="@Strings.TargetPaceSecondsTitle">
+
+        <settingConfig
+            type="numeric"
+            min="0"
+            max="59"
+            required="true" />
+    </setting>
+
+</settings>

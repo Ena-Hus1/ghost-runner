@@ -2,6 +2,7 @@ import Toybox.Activity;
 import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.WatchUi;
+import Toybox.Application;
 
 class GhostRunnerView extends WatchUi.DataField {
 
@@ -13,11 +14,22 @@ class GhostRunnerView extends WatchUi.DataField {
 
     function initialize() {
         DataField.initialize();
+
         mValue = 0.0f;
         mElapsedTime = 0;
-        mTargetPaceSecondsPerKm = 312;
         mGhostTimeSeconds = 0.0f;
         mGapSeconds = 0.0f;
+
+        var savedMinutes = Application.Properties.getValue("targetPaceMinutes");
+        var savedSeconds = Application.Properties.getValue("targetPaceSeconds");
+
+        if (savedMinutes != null && savedSeconds != null) {
+            mTargetPaceSecondsPerKm =
+                (savedMinutes as Number) * 60 +
+                (savedSeconds as Number);
+        } else {
+            mTargetPaceSecondsPerKm = 312;
+        }
     }
 
     // Set your layout here. Anytime the size of obscurity of
@@ -122,8 +134,10 @@ class GhostRunnerView extends WatchUi.DataField {
             } else {
                 targetText.setColor(Graphics.COLOR_BLACK);
             }
-
-            targetText.setText("Target: 5:12/km");
+            var targetMinutes = (mTargetPaceSecondsPerKm / 60).toNumber();
+            var targetSeconds = (mTargetPaceSecondsPerKm % 60).toNumber();
+            
+            targetText.setText("Target: " + targetMinutes.format("%d") + ":" + targetSeconds.format("%02d") + "/km");
         }
 
         // Call parent's onUpdate(dc) to redraw the layout

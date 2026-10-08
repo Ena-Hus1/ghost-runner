@@ -1,5 +1,9 @@
-<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
-    <string id="AppName">GhostRunner</string>
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
 
+    <string id="AppName">GhostRunner</string>
     <string id="label">Ghost Runner</string>
+    <string id="TargetPaceMinutesTitle">Target pace minutes</string>
+    <string id="TargetPaceSecondsTitle">Target pace seconds</string>
+
 </strings>
