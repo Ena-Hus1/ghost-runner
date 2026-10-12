@@ -32,32 +32,34 @@ class GhostRunnerView extends WatchUi.DataField {
         }
     }
 
-    // Set your layout here. Anytime the size of obscurity of
+    // Set your layout here. Anytime the size or obscurity of
     // the draw context is changed this will be called.
     function onLayout(dc as Dc) as Void {
         var obscurityFlags = DataField.getObscurityFlags();
 
-        // Top left quadrant so we'll use the top left layout
+        // Top left quadrant
         if (obscurityFlags == (OBSCURE_TOP | OBSCURE_LEFT)) {
             View.setLayout(Rez.Layouts.TopLeftLayout(dc));
 
-        // Top right quadrant so we'll use the top right layout
+        // Top right quadrant
         } else if (obscurityFlags == (OBSCURE_TOP | OBSCURE_RIGHT)) {
             View.setLayout(Rez.Layouts.TopRightLayout(dc));
 
-        // Bottom left quadrant so we'll use the bottom left layout
+        // Bottom left quadrant
         } else if (obscurityFlags == (OBSCURE_BOTTOM | OBSCURE_LEFT)) {
             View.setLayout(Rez.Layouts.BottomLeftLayout(dc));
 
-        // Bottom right quadrant so we'll use the bottom right layout
+        // Bottom right quadrant
         } else if (obscurityFlags == (OBSCURE_BOTTOM | OBSCURE_RIGHT)) {
             View.setLayout(Rez.Layouts.BottomRightLayout(dc));
 
         // Use the generic, centered layout
         } else {
             View.setLayout(Rez.Layouts.MainLayout(dc));
+
             var labelView = View.findDrawableById("label") as Text;
             labelView.locY = labelView.locY - 16;
+
             var valueView = View.findDrawableById("value") as Text;
             valueView.locY = valueView.locY + 7;
         }
@@ -66,50 +68,61 @@ class GhostRunnerView extends WatchUi.DataField {
     }
 
     // The given info object contains all the current workout information.
-    // Calculate a value and save it locally in this method.
-    // Note that compute() and onUpdate() are asynchronous, and there is no
-    // guarantee that compute() will be called before onUpdate().
+    // Calculate values and save them locally in this method.
     function compute(info as Activity.Info) as Void {
-        // See Activity.Info in the documentation for available information.
-       if (info has :elapsedDistance) {
-           if (info.elapsedDistance != null) {
-           mValue = info.elapsedDistance as Number;
-           } else {
-           mValue = 0.0f;
-           }
-       }
-       if (info has :elapsedTime) {
+
+        if (info has :elapsedDistance) {
+            if (info.elapsedDistance != null) {
+                mValue = info.elapsedDistance as Number;
+            } else {
+                mValue = 0.0f;
+            }
+        }
+
+        if (info has :elapsedTime) {
             if (info.elapsedTime != null) {
-            mElapsedTime = info.elapsedTime as Number;
+                mElapsedTime = info.elapsedTime as Number;
             } else {
                 mElapsedTime = 0;
             }
         }
-        mGhostTimeSeconds = (mValue / 1000.0f) * mTargetPaceSecondsPerKm;
-        mGapSeconds = (mElapsedTime / 1000.0f) - mGhostTimeSeconds;
+
+        mGhostTimeSeconds =
+            (mValue / 1000.0f) * mTargetPaceSecondsPerKm;
+
+        mGapSeconds =
+            (mElapsedTime / 1000.0f) - mGhostTimeSeconds;
     }
 
-    // Display the value you computed here. This will be called
-    // once a second when the data field is visible.
+    // Display the values on screen.
     function onUpdate(dc as Dc) as Void {
-        // Set the background color
-        (View.findDrawableById("Background") as Text).setColor(getBackgroundColor());
 
-        // Set the foreground color and value
+        // Set background color
+        (View.findDrawableById("Background") as Text)
+            .setColor(getBackgroundColor());
+
+        // AHEAD / BEHIND / ON PACE
         var value = View.findDrawableById("value") as Text;
+
         if (getBackgroundColor() == Graphics.COLOR_BLACK) {
             value.setColor(Graphics.COLOR_WHITE);
         } else {
             value.setColor(Graphics.COLOR_BLACK);
         }
+
         if (mGapSeconds > 0) {
-            value.setText(mGapSeconds.format("%.0f") + " s BEHIND");
+            value.setText(
+                mGapSeconds.format("%.0f") + " s BEHIND"
+            );
         } else if (mGapSeconds < 0) {
-            value.setText((-mGapSeconds).format("%.0f") + " s AHEAD");
+            value.setText(
+                (-mGapSeconds).format("%.0f") + " s AHEAD"
+            );
         } else {
             value.setText("ON PACE");
         }
 
+        // Distance
         var distanceView = View.findDrawableById("distance");
 
         if (distanceView != null) {
@@ -121,9 +134,14 @@ class GhostRunnerView extends WatchUi.DataField {
                 distanceText.setColor(Graphics.COLOR_BLACK);
             }
 
-            distanceText.setText("Distance: " + (mValue / 1000.0f).format("%.2f") + " km");
+            distanceText.setText(
+                "Distance: " +
+                (mValue / 1000.0f).format("%.2f") +
+                " km"
+            );
         }
 
+        // Target pace
         var targetPaceView = View.findDrawableById("targetPace");
 
         if (targetPaceView != null) {
@@ -134,14 +152,66 @@ class GhostRunnerView extends WatchUi.DataField {
             } else {
                 targetText.setColor(Graphics.COLOR_BLACK);
             }
-            var targetMinutes = (mTargetPaceSecondsPerKm / 60).toNumber();
-            var targetSeconds = (mTargetPaceSecondsPerKm % 60).toNumber();
-            
-            targetText.setText("Target: " + targetMinutes.format("%d") + ":" + targetSeconds.format("%02d") + "/km");
+
+            var targetMinutes =
+                (mTargetPaceSecondsPerKm / 60).toNumber();
+
+            var targetSeconds =
+                (mTargetPaceSecondsPerKm % 60).toNumber();
+
+            targetText.setText(
+                "Target: " +
+                targetMinutes.format("%d") +
+                ":" +
+                targetSeconds.format("%02d") +
+                "min/km"
+            );
         }
 
-        // Call parent's onUpdate(dc) to redraw the layout
+        // Elapsed time
+        var timeView = View.findDrawableById("time");
+
+        if (timeView != null) {
+            var timeText = timeView as Text;
+
+            if (getBackgroundColor() == Graphics.COLOR_BLACK) {
+                timeText.setColor(Graphics.COLOR_WHITE);
+            } else {
+                timeText.setColor(Graphics.COLOR_BLACK);
+            }
+
+            var totalSeconds =
+                (mElapsedTime / 1000).toNumber();
+
+            var hours =
+                (totalSeconds / 3600).toNumber();
+
+            var minutes =
+                ((totalSeconds % 3600) / 60).toNumber();
+
+            var seconds =
+                (totalSeconds % 60).toNumber();
+
+            if (hours > 0) {
+                timeText.setText(
+                    "Time: " +
+                    hours.format("%d") +
+                    ":" +
+                    minutes.format("%02d") +
+                    ":" +
+                    seconds.format("%02d")
+                );
+            } else {
+                timeText.setText(
+                    "Time: " +
+                    minutes.format("%d") +
+                    ":" +
+                    seconds.format("%02d")
+                );
+            }
+        }
+
+        // Redraw layout
         View.onUpdate(dc);
     }
-
 }
