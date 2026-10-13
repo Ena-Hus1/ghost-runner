@@ -8,19 +8,28 @@ class GhostRunnerApp extends Application.AppBase {
         AppBase.initialize();
     }
 
-    // onStart() is called on application start up
+    // Called when the application starts
     function onStart(state as Dictionary?) as Void {
     }
 
-    // onStop() is called when your application is exiting
+    // Called when the application stops
     function onStop(state as Dictionary?) as Void {
     }
 
-    //! Return the initial view of your application here
+    // Main Ghost Runner data field
     function getInitialView() as [Views] or [Views, InputDelegates] {
-        return [ new GhostRunnerView() ];
+        return [new GhostRunnerView()];
     }
 
+    // Settings screen opened directly on the Garmin watch
+    function getSettingsView()
+        as [Views] or [Views, InputDelegates] or Null {
+
+        return [
+            new GhostRunnerPacePicker(),
+            new GhostRunnerPacePickerDelegate()
+        ];
+    }
 }
 
 function getApp() as GhostRunnerApp {
