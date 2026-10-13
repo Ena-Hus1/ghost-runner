@@ -1,63 +1,163 @@
-    <layouts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
-        <!-- A generic, centered layout. -->
-        <layout id="MainLayout">
+<layouts
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <!-- =====================================================
+         MAIN / FULL SCREEN LAYOUT
+         ===================================================== -->
+
+    <layout id="MainLayout">
+
         <drawable class="Background" />
 
-        <label id="label"
+        <label
+            id="label"
             x="center"
             y="90"
             color="Graphics.COLOR_LT_GRAY"
             justification="Graphics.TEXT_JUSTIFY_CENTER"
             font="Graphics.FONT_TINY" />
 
-        <label id="value"
+        <label
+            id="value"
             x="center"
             y="135"
             color="Graphics.COLOR_WHITE"
             justification="Graphics.TEXT_JUSTIFY_CENTER"
             font="Graphics.FONT_LARGE" />
 
-        <label id="distance"
+        <label
+            id="distance"
             x="center"
             y="220"
             color="Graphics.COLOR_WHITE"
             justification="Graphics.TEXT_JUSTIFY_CENTER"
             font="Graphics.FONT_SMALL" />
 
-        <label id="targetPace"
+        <label
+            id="targetPace"
             x="center"
             y="260"
             color="Graphics.COLOR_WHITE"
             justification="Graphics.TEXT_JUSTIFY_CENTER"
             font="Graphics.FONT_SMALL" />
 
-        <label  id="time"
+        <label
+            id="time"
             x="center"
             y="300"
             color="Graphics.COLOR_WHITE"
             justification="Graphics.TEXT_JUSTIFY_CENTER"
             font="Graphics.FONT_SMALL" />
+
     </layout>
 
-    <!-- Layouts used for the for the four quadrants. -->
+
+    <!-- =====================================================
+         TOP LEFT QUADRANT
+         ===================================================== -->
+
     <layout id="TopLeftLayout">
+
         <drawable class="Background" />
-        <label id="label" x="95" y="75" color="Graphics.COLOR_LT_GRAY" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_TINY" />
-        <label id="value" x="95" y="42" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_LARGE" />
+
+        <label
+            id="label"
+            x="95"
+            y="65"
+            color="Graphics.COLOR_LT_GRAY"
+            justification="Graphics.TEXT_JUSTIFY_RIGHT"
+            font="Graphics.FONT_TINY" />
+
+        <label
+            id="value"
+            x="95"
+            y="38"
+            color="Graphics.COLOR_WHITE"
+            justification="Graphics.TEXT_JUSTIFY_RIGHT"
+            font="Graphics.FONT_SMALL" />
+
     </layout>
+
+
+    <!-- =====================================================
+         TOP RIGHT QUADRANT
+         ===================================================== -->
+
     <layout id="TopRightLayout">
+
         <drawable class="Background" />
-        <label id="label" x="14" y="75" color="Graphics.COLOR_LT_GRAY" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_TINY" />
-        <label id="value" x="14" y="42" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_LARGE" />
+
+        <label
+            id="label"
+            x="14"
+            y="65"
+            color="Graphics.COLOR_LT_GRAY"
+            justification="Graphics.TEXT_JUSTIFY_LEFT"
+            font="Graphics.FONT_TINY" />
+
+        <label
+            id="value"
+            x="14"
+            y="38"
+            color="Graphics.COLOR_WHITE"
+            justification="Graphics.TEXT_JUSTIFY_LEFT"
+            font="Graphics.FONT_SMALL" />
+
     </layout>
+
+
+    <!-- =====================================================
+         BOTTOM LEFT QUADRANT
+         ===================================================== -->
+
     <layout id="BottomLeftLayout">
+
         <drawable class="Background" />
-        <label id="label" x="95" y="10" color="Graphics.COLOR_LT_GRAY" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_TINY" />
-        <label id="value" x="95" y="27" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_LARGE" />
+
+        <label
+            id="label"
+            x="95"
+            y="10"
+            color="Graphics.COLOR_LT_GRAY"
+            justification="Graphics.TEXT_JUSTIFY_RIGHT"
+            font="Graphics.FONT_TINY" />
+
+        <label
+            id="value"
+            x="95"
+            y="30"
+            color="Graphics.COLOR_WHITE"
+            justification="Graphics.TEXT_JUSTIFY_RIGHT"
+            font="Graphics.FONT_SMALL" />
+
     </layout>
+
+
+    <!-- =====================================================
+         BOTTOM RIGHT QUADRANT
+         ===================================================== -->
+
     <layout id="BottomRightLayout">
+
         <drawable class="Background" />
-        <label id="label" x="14" y="10" color="Graphics.COLOR_LT_GRAY" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_TINY" />
-        <label id="value" x="14" y="27" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_LARGE" />
+
+        <label
+            id="label"
+            x="14"
+            y="10"
+            color="Graphics.COLOR_LT_GRAY"
+            justification="Graphics.TEXT_JUSTIFY_LEFT"
+            font="Graphics.FONT_TINY" />
+
+        <label
+            id="value"
+            x="14"
+            y="30"
+            color="Graphics.COLOR_WHITE"
+            justification="Graphics.TEXT_JUSTIFY_LEFT"
+            font="Graphics.FONT_SMALL" />
+
     </layout>
+
 </layouts>
