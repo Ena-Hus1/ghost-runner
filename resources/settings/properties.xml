@@ -1,0 +1,7 @@
+<properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <property id="targetPaceMinutes" type="number">5</property>
+    <property id="targetPaceSeconds" type="number">12</property>
+
+</properties>
