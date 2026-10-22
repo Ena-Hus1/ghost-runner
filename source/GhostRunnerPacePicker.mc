@@ -11,7 +11,7 @@ class PaceMinutesFactory extends WatchUi.PickerFactory {
     }
 
     function getSize() {
-        return 8;
+        return 13;
     }
 
     function getValue(item) {
@@ -25,7 +25,7 @@ class PaceMinutesFactory extends WatchUi.PickerFactory {
         return new WatchUi.Text({
             :text => value.format("%d") + ":",
             :color => Graphics.COLOR_WHITE,
-            :font => Graphics.FONT_LARGE
+            :font => Graphics.FONT_MEDIUM
         });
     }
 }
@@ -51,7 +51,7 @@ class PaceSecondsFactory extends WatchUi.PickerFactory {
         return new WatchUi.Text({
             :text => item.format("%02d"),
             :color => Graphics.COLOR_WHITE,
-            :font => Graphics.FONT_LARGE
+            :font => Graphics.FONT_MEDIUM
         });
     }
 }
@@ -69,10 +69,12 @@ class GhostRunnerPacePicker extends WatchUi.Picker {
             Application.Properties.getValue("targetPaceSeconds") as Number;
 
         var title = new WatchUi.Text({
-            :text => "Target pace (min/km)",
+            :text => "PACE",
             :locX => WatchUi.LAYOUT_HALIGN_CENTER,
             :locY => WatchUi.LAYOUT_VALIGN_BOTTOM,
-            :color => Graphics.COLOR_WHITE
+            :color => Graphics.COLOR_WHITE,
+            :font => Graphics.FONT_SMALL,
+            :justification => Graphics.TEXT_JUSTIFY_CENTER
         });
 
         Picker.initialize({
