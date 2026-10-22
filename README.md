@@ -8,5 +8,4 @@ A Garmin running project that compares the runner with a virtual target runner.
 - Garmin Connect IQ
 - Git
 - GitHub
-- Claude Code
 - Confluence
